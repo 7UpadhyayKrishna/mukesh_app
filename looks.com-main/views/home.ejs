@@ -1,0 +1,54 @@
+<div class="min-h-screen bg-gray-100 flex p-4">
+  <!-- Main Section for Posts -->
+  <div class="flex-1 flex flex-col items-center justify-center">
+    <!-- Title -->
+    <h1 class="text-4xl font-bold text-gray-800 mb-6">
+      Codial | <%= title %>
+    </h1>
+
+    <!-- Form Section -->
+    <section class="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+      <!-- Form for Creating a Post -->
+      <% if (locals.user) { %>
+      <form action="post/create-post" method="post" class="space-y-4 mb-8" id="new-post-form">
+        <textarea 
+          name="content" 
+          cols="30" 
+          rows="5" 
+          placeholder="What's on your mind?" 
+          required 
+          class="w-full p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+        <input 
+          type="submit" 
+          value="Post" 
+          class="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg hover:bg-blue-600 transition duration-300 cursor-pointer"
+        >
+      </form>
+      <% } %>
+
+      <!-- Posts Section -->
+      <ul class="space-y-6" id="posts-list-container">
+        <% for (post of posts) { %>
+          <%- include('_post') %> <!-- Corrected include tag -->
+        <% } %>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Sidebar for User List -->
+  <aside class="w-1/4 p-4 bg-white rounded-lg shadow-lg ml-4">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Users</h2>
+    <ul class="space-y-2">
+      <% for(user of users) { %> 
+        <li>
+          <a href="user/userProfile/<%= user.id %>" class="text-blue-500 hover:text-blue-700">
+            <%= user.name %>
+          </a>
+        </li>
+      <% } %>
+    </ul>
+  </aside>
+</div>
+
+<script src="/js/home_post.js"></script>
